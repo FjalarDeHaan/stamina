@@ -1,8 +1,8 @@
 module SMoN
 
 using Graphs, Distributions, Symbolics, POMDPTools, NLsolve
-
-using PlotlyJS
+using Plots, GraphRecipes
+# using PlotlyJS, Plots, GraphRecipes
 import GraphPlot  # for spring_layout
 
 struct Ensemble
@@ -222,14 +222,14 @@ function graph(i::Integer, n::Integer)
 end
 
 """Using graphplot with pleasant defaults."""
-gplot(G) = graphplot( G # Graph or adjacency matrix.
-                    , nodeshape= :circle
-                    , markersize = .05
-                    , markercolour = :darkgrey
-                    , linecolour = :darkgrey
-                    , linealpha = .5
-                    , edgewidth = (s, d, w) -> 5 * A[s, d]
-                    )
+gplot(G) = gui(graphplot( G # Graph or adjacency matrix.
+                        , nodeshape= :circle
+                        , markersize = .05
+                        , markercolour = :darkgrey
+                        , linecolour = :darkgrey
+                        , linealpha = .5
+                        , edgewidth = (s, d, w) -> 5 * G[s, d]
+                        ))
 
 """Adapted from Julia Plotly documentation."""
 function ambigplot(A)
